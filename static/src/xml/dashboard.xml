@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-name="crm_dashboard.CrmDashboard">
+        <div class="">
+            <div>
+                <center>
+                    <h1 style="margin:20px;">CRM Dashboard</h1>
+                </center>
+            </div>
+            <div class="stat_content" style="
+                                  text-align: centre;
+                                  padding-top: 20px; padding-left: 1500px;">
+                <select class="form-select col-8" id="timeIntervalDropdown"
+                        t-on-change="(ev) => this._fetchData(ev.target.value)">
+                    <option value="year">This Year</option>
+                    <option value="quarter">Quater</option>
+                    <option value="month">Month</option>
+                    <option value="week">Week</option>
+                </select>
+            </div>
+            <div class="row main-section" style="margin-left: 120px;">
+                <!-- Lead Tile-->
+                <div id="leads" t-on-click="_onClickLead"
+                     class="col-md-4 col-sm-6 tot_tasks oh-payslip"
+                     style=" overflow: hidden; padding-top: 30px;">
+                    <div class="oh-card" style="box-shadow:2px 4px 8px 2px rgba(0,0,0.3,0.2);
+                            display: flex; justify-content: center;" role="button">
+                        <div class="oh-card-body"
+                             style="padding: 5px 5px; float: left; width: 100%;
+                                height: auto; box-sizing: border-box; margin: 0;">
+                            <div class="stat-widget-one">
+                                <div class="stat-icon bg-mauve-light d-flex justify-content-left align-items-left">
+                                    <div style="background:#ff4d94; width:65px; text-align: center;">
+                                        <i class="fa fa-tasks text-mauve"
+                                           style="font-size:50px;"/>
+                                    </div>
+                                    <div class="stat_content" style="
+                                        text-align: center; font-weight: bold;
+                                        padding-top: 20px; padding-left: 80px;">
+                                        <div class="stat_count_lead"
+                                             style="font-size: 17px;">
+                                            <div id="inputStartLead" t-ref="inputStartLead"/>
+                                        </div>
+                                        <div class="stat-head"
+                                             style="font-size: 14px;">My Leads
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Opportunity Tile-->
+                <div id="opportunity" t-on-click="_onClickOpportunity"
+                     class="col-md-4 col-sm-6 tot_tasks oh-payslip"
+                     style=" overflow: hidden; padding-top: 30px;">
+                    <div class="oh-card" style="box-shadow:2px 4px 8px 2px rgba(0,0,0.3,0.2);
+                        display: flex; justify-content: center;" role="button">
+                        <div class="oh-card-body"
+                                style="padding: 5px 5px; float: left; width: 100%;
+                                height: auto; box-sizing: border-box; margin: 0;">
+                            <div class="stat-widget-one">
+                                <div class="stat-icon bg-mauve-light d-flex justify-content-left align-items-left">
+                                    <div style="background:yellow; width:65px; text-align: center;">
+                                        <i class="fa fa-trophy  text-mauve"
+                                           style="font-size:50px;"/>
+                                    </div>
+                                    <div class="stat-content" style="
+                                            text-align: center; font-weight: bold;
+                                            padding-top: 20px; padding-left: 80px;">
+                                        <div class="stat_count_opp"
+                                             style="font-size: 17px;">
+
+                                            <div id="inputStartOpportunity" t-ref="inputStartOpportunity"/>
+
+                                        </div>
+                                        <div class="stat-head"
+                                             style="font-size: 14px;">My
+                                            Opportunity
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Expected Revenue -->
+                <div id="expected_revenue"
+                     class="col-md-4 col-sm-6 tot_tasks oh-payslip"
+                     style=" overflow: hidden; padding-top: 30px;">
+                    <div class="oh-card" style="box-shadow:2px 4px 8px 2px rgba(0,0,0.3,0.2);
+                            display: flex; justify-content: center;" role="button">
+                        <div class="oh-card-body"
+                             style="padding: 5px 5px; float: left; width: 100%;
+                                height: auto; box-sizing: border-box; margin: 0;">
+                            <div class="stat-widget-one">
+                                <div class="stat-icon bg-mauve-light d-flex justify-content-left align-items-left">
+                                    <div style="background:#bf80ff;; width:65px; text-align: center;">
+                                        <i class="fa fa-usd  text-mauve"
+                                           style="font-size:50px;"/>
+                                    </div>
+                                    <div class="stat-content" style="
+                                        text-align: center; font-weight: bold;
+                                        padding-top: 20px; padding-left: 80px;">
+                                        <div class="stat_count_ex_rev"
+                                             style="font-size: 17px;">
+                                            <div id="revenue" t-ref="inputStartRevenue"/>
+                                        </div>
+                                        <div class="stat-head"
+                                             style="font-size: 14px;">Expected
+                                            revenue
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="ratio"
+                     class="col-md-4 col-sm-6 tot_tasks oh-payslip"
+                     style=" overflow: hidden; padding-top: 30px;">
+                    <div class="oh-card" style="box-shadow:2px 4px 8px 2px rgba(0,0,0.3,0.2);
+                        display: flex; justify-content: center;" role="button">
+                        <div class="oh-card-body"
+                                style="padding: 5px 5px; float: left; width: 100%;
+                                height: auto; box-sizing: border-box; margin: 0;">
+                            <div class="stat-widget-one">
+                                <div class="stat-icon bg-mauve-light d-flex justify-content-left align-items-left">
+                                    <div style="background:#bf80ff;; width:65px; text-align: center;">
+                                        <i class="fa fa-usd  text-mauve"
+                                           style="font-size:50px;"/>
+                                    </div>
+                                    <div class="stat-content" style="
+                                            text-align: center; font-weight: bold;
+                                            padding-top: 20px; padding-left: 80px;">
+                                        <div class="stat_count_ex_rev"
+                                             style="font-size: 17px;">
+                                            <div id="win_ratio" t-ref="inputStartWinRatio"/>
+                                        </div>
+                                        <div class="stat-head"
+                                             style="font-size: 14px;">Win Ratio
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--  Total Revenue -->
+                <div id="invoice_revenue"
+                     class="col-md-4 col-sm-6 tot_tasks oh-payslip"
+                     style=" overflow: hidden; padding-top: 30px;">
+                    <div class="oh-card" style="box-shadow:2px 4px 8px 2px rgba(0,0,0.3,0.2);
+                            display: flex; justify-content: center;" role="button">
+                        <div class="oh-card-body"
+                                style="padding: 5px 5px; float: left; width: 100%;
+                                height: auto; box-sizing: border-box; margin: 0;">
+                            <div class="stat-widget-one">
+                                <div class="stat-icon bg-mauve-light d-flex justify-content-left align-items-left">
+                                    <div style="background:#ff4d94; width:65px; text-align: center;">
+                                        <i class="fa fa-tasks text-mauve"
+                                           style="font-size:50px;"/>
+                                    </div>
+                                    <div class="stat_content" style="
+                                        text-align: center; font-weight: bold;
+                                        padding-top: 20px; padding-left: 80px;">
+                                        <div class="stat_count_lead"
+                                             style="font-size: 17px;">
+                                            <div id="total_revenue" t-ref="inputStartTotalRevenue"/>
+                                        </div>
+                                        <div class="stat-head"
+                                             style="font-size: 14px;">Revenue
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br/>
+        </div>
+        <br/>
+        <br/>
+        <br/>
+
+        <!--  Leads By Campaign -->
+        <div class="row">
+            <div class="col">
+                <div style="margin: auto; width: 400;  padding: 20px;">
+                    <h2 style="text-align: center;">Leads By Campaign</h2>
+                    <br/>
+                    <hr class="my-2"
+                        style="border: 1px solid red;border-radius: 5px;width:100%"/>
+                    <div class="oh-card-body"
+                         style="display: block;box-sizing: border-box;height: 338px; width: 487px; padding-left: 200px">
+                        <canvas id="chartpie" height="300px" width="300px"/>
+                    </div>
+                </div>
+            </div>
+            <!--  Leads By Medium -->
+            <div id="chart-medium-pie" class="col">
+                <div style="margin: auto; width: 400;  padding: 20px;">
+                    <h2 style="text-align: center;">Leads By Medium</h2>
+                    <br/>
+                    <hr class="my-2"
+                        style="border: 1px solid red;border-radius: 5px;width:100%"/>
+                    <div class="oh-card-body"
+                         style="box-sizing: border-box;height: 338px; width: 487px; padding-left: 200px">
+                        <canvas id="chartPieMedium" height="500px" width="300px"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--  Activity Pie Chart for lead/opportunity -->
+        <div id="chart-activity-pie" class="d-flex justify-content-center-col"
+             style="overflow: hidden; padding-top: 30px;align:centre">
+            <div style="margin: auto; width: 100;  padding: 20px;">
+                <h2 style="text-align: center;">Activity Pie Chart for
+                    lead/Opportunity
+                </h2>
+                <br/>
+                <hr class="my-2"
+                    style="border: 1px solid red;border-radius: 5px;width:100%"/>
+                <canvas id="chartActivityLead" height="80px" width="40px"/>
+            </div>
+        </div>
+        <br/>
+        <!--  Lost Opportunity/Lead Graph -->
+        <div class="row">
+            <div id="chart-graph" class="col">
+                <div style="display: block;box-sizing: border-box;height: 338px; width: 487px;">
+                    <h2 style="text-align: center;">Lost Opportunity/Lead
+                        Graph
+                    </h2>
+                    <br/>
+                    <ul class="nav nav-tabs d-print-none" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-bs-toggle="tab"
+                               role="tab" href="#survey_graph_question_11"
+                               aria-controls="survey_graph_question_11">
+                                <i class="fa fa-bar-chart-o"
+                                   data-oe-model="ir.ui.view" data-oe-id="2921"
+                                   data-oe-field="arch"
+                                   data-oe-xpath="/t[1]/ul[1]/li[1]/a[1]/i[1]"></i>
+                                <span data-oe-model="ir.ui.view"
+                                      data-oe-id="2921" data-oe-field="arch"
+                                      data-oe-xpath="/t[1]/ul[1]/li[1]/a[1]/span[1]">
+                                    Pie Graph
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    <hr class="my-2"
+                        style="border: 1px solid red;border-radius: 5px;width:100%"/>
+                    <div style="padding-left: 50px">
+                        <canvas id="chartbar" height="250px" width="400px"/>
+                    </div>
+                </div>
+            </div>
+            <!--  Lost Opportunity/Lead Line  -->
+            <div id="chart-line" class="col">
+                <div style="display: block;box-sizing: border-box;height: 338px; width: 487px;">
+                    <h2 style="text-align: center;">Lost Opportunity/Lead Line
+                    </h2>
+                    <br/>
+                    <ul class="nav nav-tabs d-print-none" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-bs-toggle="tab"
+                               role="tab" href="#survey_graph_question_11"
+                               aria-controls="survey_graph_question_11">
+                                <i class="fa fa-bar-chart-o"
+                                   data-oe-model="ir.ui.view" data-oe-id="2921"
+                                   data-oe-field="arch"
+                                   data-oe-xpath="/t[1]/ul[1]/li[1]/a[1]/i[1]"></i>
+                                <span data-oe-model="ir.ui.view"
+                                      data-oe-id="2921" data-oe-field="arch"
+                                      data-oe-xpath="/t[1]/ul[1]/li[1]/a[1]/span[1]">
+                                    Line Graph
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    <hr class="my-2"
+                        style="border: 1px solid red;border-radius: 5px;width:100%"/>
+                    <div style="padding-left: 50px">
+                        <canvas id="chartLine" height="250px" width="400px"/>
+                    </div>
+                </div>
+                <br/>
+            </div>
+        </div>
+        <br/>
+        <br/>
+    </t>
+</templates>
